@@ -8,7 +8,7 @@ export interface EventData {
 
 export const events: EventData[] = [
   {
-    slug: 'franco-18',
+    slug: 'cumple-santiago',
     title: 'Mis 18 Años! 🎉',
     date: '2026-04-17T23:00:00Z',
     address: 'Eva Perón 1590, Presidente Derqui',

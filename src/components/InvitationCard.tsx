@@ -112,7 +112,7 @@ export default function InvitationCard({ event }: Props) {
 
           <div className="flex flex-col items-center text-center space-y-1.5 mb-4">
             <div className="inline-block px-3 py-0.5 rounded-full bg-white/5 border border-white/10 text-fuchsia-300 text-[9px] lg:text-xs font-semibold tracking-[0.2em] uppercase">
-              Estás Invitado VIP
+              Estás Invitado
             </div>
             <h1 className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-pink-300 via-fuchsia-400 to-purple-400 leading-tight drop-shadow-[0_0_15px_rgba(236,72,153,0.4)]">
               {event.title}
@@ -139,7 +139,7 @@ export default function InvitationCard({ event }: Props) {
               </div>
               <div className="flex flex-col">
                 <span className="text-[8px] lg:text-[10px] text-zinc-400 uppercase tracking-wider font-semibold">Hora</span>
-                <span className="font-medium text-xs sm:text-sm lg:text-base xl:text-lg">{timeData.formattedTime} hs</span>
+                <span className="font-medium text-xs sm:text-sm lg:text-base xl:text-lg">{timeData.formattedTime} </span>
               </div>
             </div>
 
