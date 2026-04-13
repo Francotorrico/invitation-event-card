@@ -10,7 +10,7 @@ export const events: EventData[] = [
   {
     slug: 'cumple-santiago',
     title: 'Mis 18 Años! 🎉',
-    date: '2026-04-17T23:00:00Z',
+    date: '2026-04-18T00:00:00Z',
     address: 'Eva Perón 1590, Presidente Derqui',
     description: '¡Preparate para la mejor noche! Habrá música, drinks y mucha fiesta. ¡No podés faltar, te espero para celebrar juntos!',
   }
