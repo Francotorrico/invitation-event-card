@@ -24,7 +24,7 @@ export function generateGoogleCalendarUrl(event: EventData): string {
   // Format dates for Google Calendar: YYYYMMDDTHHmmssZ
   const startDate = new Date(event.date);
   const endDate = new Date(startDate.getTime() + 6 * 60 * 60 * 1000); // Add 6 hours for party duration
-  
+
   const formatDate = (date: Date) => date.toISOString().replace(/-|:|\.\d\d\d/g, '');
 
   const start = formatDate(startDate);

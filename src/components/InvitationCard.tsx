@@ -72,35 +72,41 @@ export default function InvitationCard({ event }: Props) {
 
   return (
     <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto flex flex-col gap-2 z-10">
-      {/* Countdown Badge */}
-      {timeLeft && (
-        <div className="self-end animate-fade-in px-1">
+      {/* Countdown Badge / Message */}
+      <div className="self-end animate-fade-in px-1">
+        {timeLeft ? (
           <div className="bg-black/40 backdrop-blur-xl border border-white/10 px-3 py-1 rounded-xl shadow-lg flex items-center gap-2">
             <span className="text-[9px] lg:text-[11px] uppercase tracking-widest text-fuchsia-400 font-bold">Faltan</span>
             <div className="flex gap-1.5 text-white font-mono text-[10px] lg:text-sm">
               <div className="flex items-baseline gap-0.5">
-                <span className="font-bold">{timeLeft?.d}</span>
+                <span className="font-bold">{timeLeft.d}</span>
                 <span className="text-[8px] text-zinc-400 uppercase">d</span>
               </div>
               <span className="text-zinc-500">:</span>
               <div className="flex items-baseline gap-0.5">
-                <span className="font-bold">{timeLeft?.h.toString().padStart(2, '0')}</span>
+                <span className="font-bold">{timeLeft.h.toString().padStart(2, '0')}</span>
                 <span className="text-[8px] text-zinc-400 uppercase">h</span>
               </div>
               <span className="text-zinc-500">:</span>
               <div className="flex items-baseline gap-0.5">
-                <span className="font-bold">{timeLeft?.m.toString().padStart(2, '0')}</span>
+                <span className="font-bold">{timeLeft.m.toString().padStart(2, '0')}</span>
                 <span className="text-[8px] text-zinc-400 uppercase">m</span>
               </div>
               <span className="text-zinc-500">:</span>
               <div className="flex items-baseline gap-0.5">
-                <span className="font-bold text-fuchsia-400">{timeLeft?.s.toString().padStart(2, '0')}</span>
+                <span className="font-bold text-fuchsia-400">{timeLeft.s.toString().padStart(2, '0')}</span>
                 <span className="text-[8px] text-zinc-400 uppercase">s</span>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        ) : (
+          <div className="bg-gradient-to-r from-fuchsia-600 to-purple-600 px-4 py-1.5 rounded-xl shadow-[0_0_15px_rgba(236,72,153,0.5)] border border-white/20 animate-pulse">
+            <span className="text-[10px] lg:text-xs uppercase tracking-[0.2em] text-white font-black stroke-black">
+              ¡Hoy es mi Cumple! 🎂🎉
+            </span>
+          </div>
+        )}
+      </div>
 
       <div className="relative group w-full transform transition-all duration-500 hover:scale-[1.01]">
         {/* Glow Effect */}

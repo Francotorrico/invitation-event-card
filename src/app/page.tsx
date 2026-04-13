@@ -1,5 +1,11 @@
 import { events } from '@/lib/events';
 import Link from 'next/link';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: "Inicio | Invitación Digital",
+  description: "Tienes una nueva invitación. Toca para ver los detalles.",
+};
 
 const ArrowIcon = () => (
   <svg 

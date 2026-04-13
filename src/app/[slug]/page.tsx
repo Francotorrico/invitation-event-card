@@ -2,9 +2,32 @@ import { events, getEventBySlug } from '@/lib/events';
 import InvitationCard from '@/components/InvitationCard';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { Metadata } from 'next';
 
 interface Props {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { slug } = await params;
+  const event = getEventBySlug(slug);
+
+  if (!event) return {};
+
+  return {
+    title: event.title,
+    description: event.description,
+    openGraph: {
+      title: event.title,
+      description: event.description,
+      images: ['/og-image.png'],
+    },
+    twitter: {
+      title: event.title,
+      description: event.description,
+      images: ['/og-image.png'],
+    }
+  };
 }
 
 export default async function EventPage({ params }: Props) {
@@ -18,24 +41,24 @@ export default async function EventPage({ params }: Props) {
   return (
     <div className="min-h-[100dvh] flex flex-col items-center justify-center bg-[#050505] font-sans selection:bg-fuchsia-500/30 relative p-5 overflow-x-hidden">
       {/* Back Button - Subtle */}
-      <Link 
-        href="/" 
-        className="fixed top-6 left-6 z-50 p-2 rounded-full border border-white/20 bg-black/40 backdrop-blur-md text-zinc-400 hover:text-white hover:bg-white/10 hover:border-white/40 transition-all duration-300 group shadow-lg"
+      <Link
+        href="/"
+        className="fixed top-6 left-6 z-50 p-2 rounded-full border border-white/50 bg-black/40 backdrop-blur-md text-white hover:bg-white/10 transition-all duration-300 group shadow-lg"
         aria-label="Volver"
       >
-        <svg 
-          xmlns="http://www.w3.org/2000/svg" 
-          width="20" 
-          height="20" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="2.5" 
-          strokeLinecap="round" 
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="20"
+          height="20"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          strokeLinecap="round"
           strokeLinejoin="round"
           className="group-hover:-translate-x-0.5 transition-transform"
         >
-          <path d="m15 18-6-6 6-6"/>
+          <path d="m15 18-6-6 6-6" />
         </svg>
       </Link>
 
