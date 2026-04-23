@@ -21,6 +21,7 @@ const ClockIcon = () => (
 
 export default function InvitationCard({ event }: Props) {
   const gcalUrl = generateGoogleCalendarUrl(event);
+  const [status, setStatus] = useState<'upcoming' | 'today' | 'finished'>('upcoming');
   const [timeData, setTimeData] = useState({
     formattedDate: 'Cargando...',
     formattedTime: '...'
@@ -29,22 +30,27 @@ export default function InvitationCard({ event }: Props) {
 
   useEffect(() => {
     const target = new Date(event.date).getTime();
+    const duration = 24 * 60 * 60 * 1000; // El evento se considera "Hoy" por 24 horas
 
     const updateCountdown = () => {
       const now = new Date().getTime();
       const difference = target - now;
 
-      if (difference <= 0) {
+      if (difference > 0) {
+        setStatus('upcoming');
+        setTimeLeft({
+          d: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          h: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
+          m: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
+          s: Math.floor((difference % (1000 * 60)) / 1000)
+        });
+      } else if (difference + duration > 0) {
+        setStatus('today');
         setTimeLeft(null);
-        return;
+      } else {
+        setStatus('finished');
+        setTimeLeft(null);
       }
-
-      setTimeLeft({
-        d: Math.floor(difference / (1000 * 60 * 60 * 24)),
-        h: Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),
-        m: Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60)),
-        s: Math.floor((difference % (1000 * 60)) / 1000)
-      });
     };
 
     updateCountdown();
@@ -74,7 +80,7 @@ export default function InvitationCard({ event }: Props) {
     <div className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-2xl mx-auto flex flex-col gap-2 z-10">
       {/* Countdown Badge / Message */}
       <div className="self-end animate-fade-in px-1">
-        {timeLeft ? (
+        {status === 'upcoming' && timeLeft ? (
           <div className="bg-black/40 backdrop-blur-xl border border-white/10 px-3 py-1 rounded-xl shadow-lg flex items-center gap-2">
             <span className="text-[9px] lg:text-[11px] uppercase tracking-widest text-fuchsia-400 font-bold">Faltan</span>
             <div className="flex gap-1.5 text-white font-mono text-[10px] lg:text-sm">
@@ -99,14 +105,21 @@ export default function InvitationCard({ event }: Props) {
               </div>
             </div>
           </div>
-        ) : (
+        ) : status === 'today' ? (
           <div className="bg-gradient-to-r from-fuchsia-600 to-purple-600 px-4 py-1.5 rounded-xl shadow-[0_0_15px_rgba(236,72,153,0.5)] border border-white/20 animate-pulse">
             <span className="text-[10px] lg:text-xs uppercase tracking-[0.2em] text-white font-black stroke-black">
               ¡Hoy es mi Cumple! 🎂🎉
             </span>
           </div>
+        ) : (
+          <div className="bg-zinc-800/80 backdrop-blur-xl border border-white/10 px-4 py-1.5 rounded-xl shadow-lg">
+            <span className="text-[10px] lg:text-xs uppercase tracking-[0.1em] text-zinc-400 font-bold">
+              ¡El evento ya finalizó! 🎈
+            </span>
+          </div>
         )}
       </div>
+
 
       <div className="relative group w-full transform transition-all duration-500 hover:scale-[1.01]">
         {/* Glow Effect */}
