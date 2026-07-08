@@ -8,12 +8,13 @@ export interface EventData {
 
 export const events: EventData[] = [
   {
-    slug: 'cumple-santiago',
-    title: 'Mis 18 Años! 🎉',
-    date: '2026-04-18T00:00:00Z',
-    address: 'Eva Perón 1590, Presidente Derqui',
-    description: '¡Preparate para la mejor noche! Habrá música, drinks y mucha fiesta. ¡No podés faltar, te espero para celebrar juntos!',
-  }
+    slug: "cumple-santiago",
+    title: "Mis 18 Años! 🎉",
+    date: "2026-04-18T00:00:00Z",
+    address: "----Tu ubicacion---",
+    description:
+      "¡Preparate para la mejor noche! Habrá música, drinks y mucha fiesta. ¡No podés faltar, te espero para celebrar juntos!",
+  },
 ];
 
 export function getEventBySlug(slug: string): EventData | undefined {
@@ -25,13 +26,14 @@ export function generateGoogleCalendarUrl(event: EventData): string {
   const startDate = new Date(event.date);
   const endDate = new Date(startDate.getTime() + 6 * 60 * 60 * 1000); // Add 6 hours for party duration
 
-  const formatDate = (date: Date) => date.toISOString().replace(/-|:|\.\d\d\d/g, '');
+  const formatDate = (date: Date) =>
+    date.toISOString().replace(/-|:|\.\d\d\d/g, "");
 
   const start = formatDate(startDate);
   const end = formatDate(endDate);
 
   const params = new URLSearchParams({
-    action: 'TEMPLATE',
+    action: "TEMPLATE",
     text: event.title,
     dates: `${start}/${end}`,
     details: event.description,
